@@ -31,18 +31,5 @@ func NewGoRoutine(wg *sync.WaitGroup, f func()) {
 	}()
 }
 func main() {
-	var wg sync.WaitGroup
-
-	defer func() {
-		fmt.Println("Before panic")
-	}()
-
-	defer wg.Wait()
-
-	NewGoRoutine(&wg, sayLoLo)
-	NewGoRoutine(&wg, sayHeHe)
-
-	x := 5
-	y := 0
-	fmt.Println(x / y)
+	fmt.Println("Hello Go")
 }
