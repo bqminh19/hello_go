@@ -2,6 +2,9 @@ package main
 
 import (
 	"errors"
+	"github.com/pborman/uuid"
+	"log"
+	"strings"
 	"testing"
 )
 
@@ -20,5 +23,16 @@ func testEllipsis(i ...interface{}) error {
 }
 
 func TestEllipsis(t *testing.T) {
-	testEllipsis(Point{0, 5}, 15)
+	err := testEllipsis(Point{0, 5}, 15)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func TestUUID(t *testing.T) {
+	uuidWH := uuid.NewRandom()
+	uuids := strings.Replace(uuidWH.String(), "-", "", -1)
+	if len(uuids) == 0 {
+		log.Fatal(errors.New("can not use package uuid"))
+	}
 }
