@@ -29,7 +29,9 @@ jobs:
           name: Run tests
           command: |
             mkdir -p /tmp/test-reports
-            gotestsum --junitfile /tmp/test-reports/unit-tests.xml
+            gotestsum --junitfile /tmp/test-reports/unit-tests.xml  
+      - store_test_results:
+          path: /tmp/test-reports
       - run:
           name: Run unit tests
           environment: # environment variables for the database url and path to migration files
@@ -40,9 +42,7 @@ jobs:
           command: |
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
             gotestsum --junitfile ${TEST_RESULTS}/gotestsum-report.xml -- $PACKAGE_NAMES
-            
-      - store_test_results:
-          path: /tmp/test-reports
+          
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
