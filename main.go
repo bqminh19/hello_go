@@ -30,6 +30,14 @@ func NewGoRoutine(wg *sync.WaitGroup, f func()) {
 		wg.Done()
 	}()
 }
+
+func RoutineTimeout(timeout chan bool, millis time.Duration) {
+	go func() {
+		time.Sleep(millis)
+		timeout <- true
+	}()
+}
+
 func main() {
 	fmt.Println("Hello Go")
 }
